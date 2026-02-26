@@ -1,0 +1,1 @@
+add_library (smc STATIC automat_sm.cpp automat.sm automat_sm.h automat.h automat.cpp)

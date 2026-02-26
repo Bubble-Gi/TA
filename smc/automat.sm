@@ -1,0 +1,161 @@
+%class Automat
+%header automat.h
+%start AutomatMap::Start
+
+
+%map AutomatMap
+%%
+Start{
+    c        Cs     {}
+}
+
+Cs{
+    r        Rs     {}
+}
+
+Rs{
+    e        Es     {}
+}
+
+Es{
+    a        As     {}
+}
+
+As{
+    t        Ts     {}
+}
+
+Ts{
+    e        Es2     {}
+}
+
+Es2{
+    sp       Space1   {}
+}
+
+Space1{
+    ch     Name   {}
+    num    Error  {}
+    sp     nil    {}
+}
+
+Name{
+    ch     nil    {}
+    sp     Space2  {}
+    num    nil    {}
+}
+
+Space2{
+    a      As2     {}
+    o_b    OpenBracket  {}
+    sp     nil     {}
+}
+
+OpenBracket{
+    sp     Space3   {}
+}
+
+Space3{
+    sp      nil     {}
+    ch      List   {}
+    num     Error   {}
+    c_b     Error   {}
+}
+
+List{
+    ch      nil     {}
+    num     nil     {}
+    comma   Comma   {}
+    sp      Space4  {}
+}
+
+Comma{
+    ch      List    {}
+    num     Error   {}
+}
+
+Space4{
+    c_b     Close_bracket  {}
+    sp      nil      {}
+}
+
+Close_bracket{
+    EOS     Ok       {}
+}
+
+As2{
+    s       Ss        {}
+}
+
+Ss{
+    sp      Space5     {}
+}
+
+Space5{
+    sp     nil    {}
+    ch     Name0  {}
+    num    Error  {}
+}
+
+Name0{
+    ch     nil    {}
+    sp     Space6  {}
+    num    nil    {}
+}
+
+Space6{
+    sp     nil    {}
+    j      Js     {}
+}
+
+Js{
+    o      Os     {}
+}
+
+Os{
+    i      Is     {}
+}
+
+Is{
+    n      Ns      {}
+}
+
+Ns{
+    sp     Space7   {}
+}
+
+Space7{
+    sp     nil     {}
+    ch     Name1   {}
+    num    Error   {}
+}
+
+Name1{
+    ch     nil    {}
+    sp     nil    {}
+    num    nil    {}
+    EOS    Ok     {}
+}
+
+Error{
+    Unknown nil {}
+}
+
+Ok{
+
+}
+
+Default {
+    Unknown  Error  {}
+    c        Error  {}
+    r        Error  {}
+    e        Error  {}
+    a        Error  {}
+    t        Error  {}
+    s        Error  {}
+    j        Error  {}
+    o        Error  {}
+    i        Error  {}
+    n        Error  {}
+}
+%%
