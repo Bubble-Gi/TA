@@ -6,27 +6,27 @@
 %map AutomatMap
 %%
 Start{
-    c        Cs     {}
+    ch(c :char)[c == 'c']        Cs     {}
 }
 
 Cs{
-    r        Rs     {}
+    ch(c :char)[c == 'r']        Rs     {}
 }
 
 Rs{
-    e        Es     {}
+    ch(c :char)[c == 'e']        Es     {}
 }
 
 Es{
-    a        As     {}
+    ch(c :char)[c == 'a']        As     {}
 }
 
 As{
-    t        Ts     {}
+    ch(c :char)[c == 't']        Ts     {}
 }
 
 Ts{
-    e        Es2     {}
+    ch(c :char)[c == 'e']        Es2     {}
 }
 
 Es2{
@@ -34,19 +34,19 @@ Es2{
 }
 
 Space1{
-    ch     Name   {}
-    num    Error  {}
+    ch(c :char)     Name   {}
+    num    Error  { setBad(); }
     sp     nil    {}
 }
 
 Name{
-    ch     nil    {}
+    ch(c :char)     nil    {}
     sp     Space2  {}
     num    nil    {}
 }
 
 Space2{
-    a      As2     {}
+    ch(c :char)[c == 'a']      As2     {}
     o_b    OpenBracket  {}
     sp     nil     {}
 }
@@ -57,21 +57,22 @@ OpenBracket{
 
 Space3{
     sp      nil     {}
-    ch      List   {}
-    num     Error   {}
-    c_b     Error   {}
+    ch(c :char)      List   {}
+    num     Error   { setBad(); }
+    c_b     Error   {setBad(); }
 }
 
 List{
-    ch      nil     {}
+    ch(c :char)      nil     {}
     num     nil     {}
     comma   Comma   {}
     sp      Space4  {}
 }
 
 Comma{
-    ch      List    {}
-    num     Error   {}
+    ch(c :char)      List    {}
+    num     Error   { setBad(); }
+    sp      Error   { setBad(); }
 }
 
 Space4{
@@ -80,11 +81,11 @@ Space4{
 }
 
 Close_bracket{
-    EOS     Ok       {}
+    EOS     Ok       { setGood(); }
 }
 
 As2{
-    s       Ss        {}
+    ch(c :char)[c == 's']       Ss        {}
 }
 
 Ss{
@@ -93,31 +94,31 @@ Ss{
 
 Space5{
     sp     nil    {}
-    ch     Name0  {}
-    num    Error  {}
+    ch(c :char)     Name0  {}
+    num    Error  { setBad(); }
 }
 
 Name0{
-    ch     nil    {}
+    ch(c :char)     nil    {}
     sp     Space6  {}
     num    nil    {}
 }
 
 Space6{
     sp     nil    {}
-    j      Js     {}
+    ch(c :char)[c == 'j']      Js     {}
 }
 
 Js{
-    o      Os     {}
+    ch(c :char)[c == 'o']      Os     {}
 }
 
 Os{
-    i      Is     {}
+    ch(c :char)[c == 'i']      Is     {}
 }
 
 Is{
-    n      Ns      {}
+    ch(c :char)[c == 'n']      Ns      {}
 }
 
 Ns{
@@ -126,36 +127,35 @@ Ns{
 
 Space7{
     sp     nil     {}
-    ch     Name1   {}
-    num    Error   {}
+    ch(c :char)     Name1   {}
+    num    Error   { setBad(); }
 }
 
 Name1{
-    ch     nil    {}
+    ch(c :char)     nil    {}
     sp     nil    {}
     num    nil    {}
-    EOS    Ok     {}
+    EOS    Ok     { setGood(); }
 }
 
 Error{
-    Unknown nil {}
+    num     nil   { setBad(); setS }
+    sp      nil  {setBad();}
+    Unknown nil { setBad(); }
+    start    nil   {}
+    ch(c : char)     nil    {}
+    comma    nil   {}
+    o_b      nil    {}
+    c_b      nil    {}
+    EOS      OK  {}
 }
 
 Ok{
-
+    start    Start   {}
 }
 
 Default {
-    Unknown  Error  {}
-    c        Error  {}
-    r        Error  {}
-    e        Error  {}
-    a        Error  {}
-    t        Error  {}
-    s        Error  {}
-    j        Error  {}
-    o        Error  {}
-    i        Error  {}
-    n        Error  {}
+    Unknown  Error  { setBad(); }
+    ch(c :char)   Error    { setBad(); }
 }
 %%
