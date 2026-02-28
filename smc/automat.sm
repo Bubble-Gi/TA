@@ -6,156 +6,162 @@
 %map AutomatMap
 %%
 Start{
-    ch(c :char)[c == 'c']        Cs     {}
+    ch(c :char)[c == 'c']                   Cs                          {setGood(); reset();}
 }
 
 Cs{
-    ch(c :char)[c == 'r']        Rs     {}
+    ch(c :char)[c == 'r']                   Rs                          {}
 }
 
 Rs{
-    ch(c :char)[c == 'e']        Es     {}
+    ch(c :char)[c == 'e']                   Es                          {}
 }
 
 Es{
-    ch(c :char)[c == 'a']        As     {}
+    ch(c :char)[c == 'a']                   As                          {}
 }
 
 As{
-    ch(c :char)[c == 't']        Ts     {}
+    ch(c :char)[c == 't']                   Ts                          {}
 }
 
 Ts{
-    ch(c :char)[c == 'e']        Es2     {}
+    ch(c :char)[c == 'e']                   Es2                         {}
 }
 
 Es2{
-    sp       Space1   {}
+    sp                                      Space1                      {}
 }
 
 Space1{
-    ch(c :char)     Name   {}
-    num    Error  { setBad(); }
-    sp     nil    {}
+    ch(c :char)                             Name                        { add_char(ctxt.buf_name, c); }
+    num(c : char)                           Error                       { setBad(); reset(); }
+    sp                                      nil                         {}
 }
 
 Name{
-    ch(c :char)     nil    {}
-    sp     Space2  {}
-    num    nil    {}
+    ch(c :char)                             nil                         { add_char(ctxt.buf_name, c); }
+    sp                                      Space2                      {}
+    num(c : char)                           nil                         { add_char(ctxt.buf_name, c); }
 }
 
 Space2{
-    ch(c :char)[c == 'a']      As2     {}
-    o_b    OpenBracket  {}
-    sp     nil     {}
+    ch(c :char)[c == 'a']                   As2                         {}
+    o_b                                     OpenBracket                 {}
+    sp                                      nil                         {}
 }
 
 OpenBracket{
-    sp     Space3   {}
+    sp                                      Space3                      {}
+
 }
 
 Space3{
-    sp      nil     {}
-    ch(c :char)      List   {}
-    num     Error   { setBad(); }
-    c_b     Error   {setBad(); }
+    sp                                      nil                         {}
+    ch(c :char)                             List                        { add_char(ctxt.buf_one_atr, c); }
+    num(c : char)                           Error                       { setBad(); reset();}
+    c_b                                     Error                       { setBad(); reset();}
 }
 
 List{
-    ch(c :char)      nil     {}
-    num     nil     {}
-    comma   Comma   {}
-    sp      Space4  {}
+    ch(c :char)                             nil                         { add_char(ctxt.buf_one_atr, c); }
+    num(c : char)                           nil                         { add_char(ctxt.buf_one_atr, c); }
+    comma                                   Comma                       { add_all_atr(); reset_buf_atr(); }
+    sp                                      Space4                      { add_all_atr(); reset_buf_atr(); }
 }
 
 Comma{
-    ch(c :char)      List    {}
-    num     Error   { setBad(); }
-    sp      Error   { setBad(); }
+    ch(c :char)                             List                        { add_char(ctxt.buf_one_atr, c); }
+    num(c : char)                           Error                       { setBad(); reset(); }
+    sp                                      Error                       { setBad(); reset(); }
 }
 
 Space4{
-    c_b     Close_bracket  {}
-    sp      nil      {}
+    c_b                                     Close_bracket               {}
+    sp                                      nil                         {}
 }
 
 Close_bracket{
-    EOS     Ok       { setGood(); }
+    EOS                                     Ok                          { setGood(); }
 }
 
 As2{
-    ch(c :char)[c == 's']       Ss        {}
+    ch(c :char)[c == 's']                   Ss                          {}
 }
 
 Ss{
-    sp      Space5     {}
+    sp                                      Space5                      {}
 }
 
 Space5{
-    sp     nil    {}
-    ch(c :char)     Name0  {}
-    num    Error  { setBad(); }
+    sp                                      nil                         {}
+    ch(c :char)                             Name0                       { add_char(ctxt.buf_names_connect1, c); }
+    num(c : char)                           Error                       { setBad(); reset(); }
 }
 
 Name0{
-    ch(c :char)     nil    {}
-    sp     Space6  {}
-    num    nil    {}
+    ch(c :char)                             nil                         { add_char(ctxt.buf_names_connect1, c); }
+    sp                                      Space6                      {}
+    num(c : char)                           nil                         { add_char(ctxt.buf_names_connect1, c); }
 }
 
 Space6{
-    sp     nil    {}
-    ch(c :char)[c == 'j']      Js     {}
+    sp                                      nil                         {}
+    ch(c :char)[c == 'j']                   Js                          {}
 }
 
 Js{
-    ch(c :char)[c == 'o']      Os     {}
+    ch(c :char)[c == 'o']                   Os                          {}
 }
 
 Os{
-    ch(c :char)[c == 'i']      Is     {}
+    ch(c :char)[c == 'i']                   Is                          {}
 }
 
 Is{
-    ch(c :char)[c == 'n']      Ns      {}
+    ch(c :char)[c == 'n']                   Ns                          {}
 }
 
 Ns{
-    sp     Space7   {}
+    sp                                      Space7                      {}
 }
 
 Space7{
-    sp     nil     {}
-    ch(c :char)     Name1   {}
-    num    Error   { setBad(); }
+    sp                                      nil                         {}
+    ch(c :char)                             Name1                       { add_char(ctxt.buf_names_connect2, c); }
+    num(c : char)                           Error                       { setBad(); reset(); }
 }
 
 Name1{
-    ch(c :char)     nil    {}
-    sp     nil    {}
-    num    nil    {}
-    EOS    Ok     { setGood(); }
+    ch(c :char)                             nil                         { add_char(ctxt.buf_names_connect2, c); }
+    sp                                      nil                         {}
+    num(c : char)                           nil                         { add_char(ctxt.buf_names_connect2, c); }
+    EOS                                     Ok                          { setGood(); }
 }
 
 Error{
-    num     nil   { setBad(); setS }
-    sp      nil  {setBad();}
-    Unknown nil { setBad(); }
-    start    nil   {}
-    ch(c : char)     nil    {}
-    comma    nil   {}
-    o_b      nil    {}
-    c_b      nil    {}
-    EOS      OK  {}
+    num(c : char)                           nil                         { }
+    sp                                      nil                         { }
+    Unknown                                 nil                         { }
+    start                                   Start                       { reset(); }
+    ch(c : char)                            nil                         { }
+    comma                                   nil                         { }
+    o_b                                     nil                         { }
+    c_b                                     nil                         { }
+    EOS                                     nil                         { }
 }
 
 Ok{
-    start    Start   {}
+    start                                   Start                       { reset(); setGood(); }
 }
 
 Default {
-    Unknown  Error  { setBad(); }
-    ch(c :char)   Error    { setBad(); }
+    Unknown                                 Error                       { setBad();  }
+    ch(c :char)                             Error                       { setBad();  }
+    sp                                      Error                       { setBad();  }
+    comma                                   Error                       { setBad();  }
+    o_b                                     Error                       { setBad();  }
+    c_b                                     Error                       { setBad();  }
+    EOS                                     Error                       { setBad();  }
 }
 %%

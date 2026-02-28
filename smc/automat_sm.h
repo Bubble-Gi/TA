@@ -63,22 +63,13 @@ public:
 
     virtual void EOS(automatContext& context);
     virtual void Unknown(automatContext& context);
-    virtual void a(automatContext& context);
-    virtual void c(automatContext& context);
     virtual void c_b(automatContext& context);
-    virtual void ch(automatContext& context);
+    virtual void ch(automatContext& context, char c);
     virtual void comma(automatContext& context);
-    virtual void e(automatContext& context);
-    virtual void i(automatContext& context);
-    virtual void j(automatContext& context);
-    virtual void n(automatContext& context);
-    virtual void num(automatContext& context);
-    virtual void o(automatContext& context);
+    virtual void num(automatContext& context, char c);
     virtual void o_b(automatContext& context);
-    virtual void r(automatContext& context);
-    virtual void s(automatContext& context);
     virtual void sp(automatContext& context);
-    virtual void t(automatContext& context);
+    virtual void start(automatContext& context);
 
 protected:
 
@@ -130,16 +121,12 @@ public:
     {};
 
     virtual void Unknown(automatContext& context);
-    virtual void c(automatContext& context);
-    virtual void r(automatContext& context);
-    virtual void e(automatContext& context);
-    virtual void a(automatContext& context);
-    virtual void t(automatContext& context);
-    virtual void s(automatContext& context);
-    virtual void j(automatContext& context);
-    virtual void o(automatContext& context);
-    virtual void i(automatContext& context);
-    virtual void n(automatContext& context);
+    virtual void ch(automatContext& context, char c);
+    virtual void sp(automatContext& context);
+    virtual void comma(automatContext& context);
+    virtual void o_b(automatContext& context);
+    virtual void c_b(automatContext& context);
+    virtual void EOS(automatContext& context);
 };
 
 class AutomatMap_Start :
@@ -150,7 +137,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void c(automatContext& context);
+    virtual void ch(automatContext& context, char c);
 };
 
 class AutomatMap_Cs :
@@ -161,7 +148,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void r(automatContext& context);
+    virtual void ch(automatContext& context, char c);
 };
 
 class AutomatMap_Rs :
@@ -172,7 +159,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void e(automatContext& context);
+    virtual void ch(automatContext& context, char c);
 };
 
 class AutomatMap_Es :
@@ -183,7 +170,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void a(automatContext& context);
+    virtual void ch(automatContext& context, char c);
 };
 
 class AutomatMap_As :
@@ -194,7 +181,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void t(automatContext& context);
+    virtual void ch(automatContext& context, char c);
 };
 
 class AutomatMap_Ts :
@@ -205,7 +192,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void e(automatContext& context);
+    virtual void ch(automatContext& context, char c);
 };
 
 class AutomatMap_Es2 :
@@ -227,8 +214,8 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void ch(automatContext& context);
-    virtual void num(automatContext& context);
+    virtual void ch(automatContext& context, char c);
+    virtual void num(automatContext& context, char c);
     virtual void sp(automatContext& context);
 };
 
@@ -240,8 +227,8 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void ch(automatContext& context);
-    virtual void num(automatContext& context);
+    virtual void ch(automatContext& context, char c);
+    virtual void num(automatContext& context, char c);
     virtual void sp(automatContext& context);
 };
 
@@ -253,7 +240,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void a(automatContext& context);
+    virtual void ch(automatContext& context, char c);
     virtual void o_b(automatContext& context);
     virtual void sp(automatContext& context);
 };
@@ -278,8 +265,8 @@ public:
     {};
 
     virtual void c_b(automatContext& context);
-    virtual void ch(automatContext& context);
-    virtual void num(automatContext& context);
+    virtual void ch(automatContext& context, char c);
+    virtual void num(automatContext& context, char c);
     virtual void sp(automatContext& context);
 };
 
@@ -291,9 +278,9 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void ch(automatContext& context);
+    virtual void ch(automatContext& context, char c);
     virtual void comma(automatContext& context);
-    virtual void num(automatContext& context);
+    virtual void num(automatContext& context, char c);
     virtual void sp(automatContext& context);
 };
 
@@ -305,8 +292,9 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void ch(automatContext& context);
-    virtual void num(automatContext& context);
+    virtual void ch(automatContext& context, char c);
+    virtual void num(automatContext& context, char c);
+    virtual void sp(automatContext& context);
 };
 
 class AutomatMap_Space4 :
@@ -340,7 +328,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void s(automatContext& context);
+    virtual void ch(automatContext& context, char c);
 };
 
 class AutomatMap_Ss :
@@ -362,8 +350,8 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void ch(automatContext& context);
-    virtual void num(automatContext& context);
+    virtual void ch(automatContext& context, char c);
+    virtual void num(automatContext& context, char c);
     virtual void sp(automatContext& context);
 };
 
@@ -375,8 +363,8 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void ch(automatContext& context);
-    virtual void num(automatContext& context);
+    virtual void ch(automatContext& context, char c);
+    virtual void num(automatContext& context, char c);
     virtual void sp(automatContext& context);
 };
 
@@ -388,7 +376,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void j(automatContext& context);
+    virtual void ch(automatContext& context, char c);
     virtual void sp(automatContext& context);
 };
 
@@ -400,7 +388,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void o(automatContext& context);
+    virtual void ch(automatContext& context, char c);
 };
 
 class AutomatMap_Os :
@@ -411,7 +399,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void i(automatContext& context);
+    virtual void ch(automatContext& context, char c);
 };
 
 class AutomatMap_Is :
@@ -422,7 +410,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void n(automatContext& context);
+    virtual void ch(automatContext& context, char c);
 };
 
 class AutomatMap_Ns :
@@ -444,8 +432,8 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
-    virtual void ch(automatContext& context);
-    virtual void num(automatContext& context);
+    virtual void ch(automatContext& context, char c);
+    virtual void num(automatContext& context, char c);
     virtual void sp(automatContext& context);
 };
 
@@ -458,8 +446,8 @@ public:
     {};
 
     virtual void EOS(automatContext& context);
-    virtual void ch(automatContext& context);
-    virtual void num(automatContext& context);
+    virtual void ch(automatContext& context, char c);
+    virtual void num(automatContext& context, char c);
     virtual void sp(automatContext& context);
 };
 
@@ -471,7 +459,15 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
+    virtual void EOS(automatContext& context);
     virtual void Unknown(automatContext& context);
+    virtual void c_b(automatContext& context);
+    virtual void ch(automatContext& context, char c);
+    virtual void comma(automatContext& context);
+    virtual void num(automatContext& context, char c);
+    virtual void o_b(automatContext& context);
+    virtual void sp(automatContext& context);
+    virtual void start(automatContext& context);
 };
 
 class AutomatMap_Ok :
@@ -482,6 +478,7 @@ public:
     : AutomatMap_Default(name, stateId)
     {};
 
+    virtual void start(automatContext& context);
 };
 
 class automatContext :
@@ -530,24 +527,14 @@ public:
         getState().Unknown(*this);
     };
 
-    inline void a()
-    {
-        getState().a(*this);
-    };
-
-    inline void c()
-    {
-        getState().c(*this);
-    };
-
     inline void c_b()
     {
         getState().c_b(*this);
     };
 
-    inline void ch()
+    inline void ch(char c)
     {
-        getState().ch(*this);
+        getState().ch(*this, c);
     };
 
     inline void comma()
@@ -555,34 +542,9 @@ public:
         getState().comma(*this);
     };
 
-    inline void e()
+    inline void num(char c)
     {
-        getState().e(*this);
-    };
-
-    inline void i()
-    {
-        getState().i(*this);
-    };
-
-    inline void j()
-    {
-        getState().j(*this);
-    };
-
-    inline void n()
-    {
-        getState().n(*this);
-    };
-
-    inline void num()
-    {
-        getState().num(*this);
-    };
-
-    inline void o()
-    {
-        getState().o(*this);
+        getState().num(*this, c);
     };
 
     inline void o_b()
@@ -590,24 +552,14 @@ public:
         getState().o_b(*this);
     };
 
-    inline void r()
-    {
-        getState().r(*this);
-    };
-
-    inline void s()
-    {
-        getState().s(*this);
-    };
-
     inline void sp()
     {
         getState().sp(*this);
     };
 
-    inline void t()
+    inline void start()
     {
-        getState().t(*this);
+        getState().start(*this);
     };
 
 private:

@@ -51,22 +51,12 @@ void AutomatState::Unknown(automatContext& context)
     Default(context);
 }
 
-void AutomatState::a(automatContext& context)
-{
-    Default(context);
-}
-
-void AutomatState::c(automatContext& context)
-{
-    Default(context);
-}
-
 void AutomatState::c_b(automatContext& context)
 {
     Default(context);
 }
 
-void AutomatState::ch(automatContext& context)
+void AutomatState::ch(automatContext& context, char c)
 {
     Default(context);
 }
@@ -76,32 +66,7 @@ void AutomatState::comma(automatContext& context)
     Default(context);
 }
 
-void AutomatState::e(automatContext& context)
-{
-    Default(context);
-}
-
-void AutomatState::i(automatContext& context)
-{
-    Default(context);
-}
-
-void AutomatState::j(automatContext& context)
-{
-    Default(context);
-}
-
-void AutomatState::n(automatContext& context)
-{
-    Default(context);
-}
-
-void AutomatState::num(automatContext& context)
-{
-    Default(context);
-}
-
-void AutomatState::o(automatContext& context)
+void AutomatState::num(automatContext& context, char c)
 {
     Default(context);
 }
@@ -111,22 +76,12 @@ void AutomatState::o_b(automatContext& context)
     Default(context);
 }
 
-void AutomatState::r(automatContext& context)
-{
-    Default(context);
-}
-
-void AutomatState::s(automatContext& context)
-{
-    Default(context);
-}
-
 void AutomatState::sp(automatContext& context)
 {
     Default(context);
 }
 
-void AutomatState::t(automatContext& context)
+void AutomatState::start(automatContext& context)
 {
     Default(context);
 }
@@ -142,170 +97,266 @@ void AutomatState::Default(automatContext& context)
 
 void AutomatMap_Default::Unknown(automatContext& context)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Default::c(automatContext& context)
+void AutomatMap_Default::ch(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Default::r(automatContext& context)
+void AutomatMap_Default::sp(automatContext& context)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Default::e(automatContext& context)
+void AutomatMap_Default::comma(automatContext& context)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Default::a(automatContext& context)
+void AutomatMap_Default::o_b(automatContext& context)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Default::t(automatContext& context)
+void AutomatMap_Default::c_b(automatContext& context)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Default::s(automatContext& context)
+void AutomatMap_Default::EOS(automatContext& context)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Default::j(automatContext& context)
+void AutomatMap_Start::ch(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
-    context.getState().Entry(context);
+    if (c == 'c')
+    {
+        context.getState().Exit(context);
+        context.clearState();
+        try
+        {
+            ctxt.setGood();
+            ctxt.reset();
+            context.setState(AutomatMap::Cs);
+        }
+        catch (...)
+        {
+            context.setState(AutomatMap::Cs);
+            throw;
+        }
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
 
-void AutomatMap_Default::o(automatContext& context)
+void AutomatMap_Cs::ch(automatContext& context, char c)
 {
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
-    context.getState().Entry(context);
+    if (c == 'r')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(AutomatMap::Rs);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
 
-void AutomatMap_Default::i(automatContext& context)
+void AutomatMap_Rs::ch(automatContext& context, char c)
 {
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
-    context.getState().Entry(context);
+    if (c == 'e')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(AutomatMap::Es);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
 
-void AutomatMap_Default::n(automatContext& context)
+void AutomatMap_Es::ch(automatContext& context, char c)
 {
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
-    context.getState().Entry(context);
+    if (c == 'a')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(AutomatMap::As);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
 
-void AutomatMap_Start::c(automatContext& context)
+void AutomatMap_As::ch(automatContext& context, char c)
 {
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Cs);
-    context.getState().Entry(context);
+    if (c == 't')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(AutomatMap::Ts);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
 
-void AutomatMap_Cs::r(automatContext& context)
+void AutomatMap_Ts::ch(automatContext& context, char c)
 {
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Rs);
-    context.getState().Entry(context);
-
-
-}
-
-void AutomatMap_Rs::e(automatContext& context)
-{
-
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Es);
-    context.getState().Entry(context);
-
-
-}
-
-void AutomatMap_Es::a(automatContext& context)
-{
-
-    context.getState().Exit(context);
-    context.setState(AutomatMap::As);
-    context.getState().Entry(context);
-
-
-}
-
-void AutomatMap_As::t(automatContext& context)
-{
-
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Ts);
-    context.getState().Entry(context);
-
-
-}
-
-void AutomatMap_Ts::e(automatContext& context)
-{
-
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Es2);
-    context.getState().Entry(context);
+    if (c == 'e')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(AutomatMap::Es2);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
@@ -320,21 +371,44 @@ void AutomatMap_Es2::sp(automatContext& context)
 
 }
 
-void AutomatMap_Space1::ch(automatContext& context)
+void AutomatMap_Space1::ch(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Name);
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_name, c);
+        context.setState(AutomatMap::Name);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Name);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Space1::num(automatContext& context)
+void AutomatMap_Space1::num(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        ctxt.reset();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
@@ -347,16 +421,44 @@ void AutomatMap_Space1::sp(automatContext& context)
 
 }
 
-void AutomatMap_Name::ch(automatContext& context)
+void AutomatMap_Name::ch(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
+    AutomatState& endState = context.getState();
+
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_name, c);
+        context.setState(endState);
+    }
+    catch (...)
+    {
+        context.setState(endState);
+        throw;
+    }
 
 
 }
 
-void AutomatMap_Name::num(automatContext& context)
+void AutomatMap_Name::num(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
+    AutomatState& endState = context.getState();
+
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_name, c);
+        context.setState(endState);
+    }
+    catch (...)
+    {
+        context.setState(endState);
+        throw;
+    }
 
 
 }
@@ -371,12 +473,20 @@ void AutomatMap_Name::sp(automatContext& context)
 
 }
 
-void AutomatMap_Space2::a(automatContext& context)
+void AutomatMap_Space2::ch(automatContext& context, char c)
 {
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::As2);
-    context.getState().Entry(context);
+    if (c == 'a')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(AutomatMap::As2);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
@@ -410,29 +520,64 @@ void AutomatMap_OpenBracket::sp(automatContext& context)
 
 void AutomatMap_Space3::c_b(automatContext& context)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        ctxt.reset();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Space3::ch(automatContext& context)
+void AutomatMap_Space3::ch(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::List);
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_one_atr, c);
+        context.setState(AutomatMap::List);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::List);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Space3::num(automatContext& context)
+void AutomatMap_Space3::num(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        ctxt.reset();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
@@ -445,55 +590,152 @@ void AutomatMap_Space3::sp(automatContext& context)
 
 }
 
-void AutomatMap_List::ch(automatContext& context)
+void AutomatMap_List::ch(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
+    AutomatState& endState = context.getState();
+
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_one_atr, c);
+        context.setState(endState);
+    }
+    catch (...)
+    {
+        context.setState(endState);
+        throw;
+    }
 
 
 }
 
 void AutomatMap_List::comma(automatContext& context)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Comma);
+    context.clearState();
+    try
+    {
+        ctxt.add_all_atr();
+        ctxt.reset_buf_atr();
+        context.setState(AutomatMap::Comma);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Comma);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_List::num(automatContext& context)
+void AutomatMap_List::num(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
+    AutomatState& endState = context.getState();
+
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_one_atr, c);
+        context.setState(endState);
+    }
+    catch (...)
+    {
+        context.setState(endState);
+        throw;
+    }
 
 
 }
 
 void AutomatMap_List::sp(automatContext& context)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Space4);
+    context.clearState();
+    try
+    {
+        ctxt.add_all_atr();
+        ctxt.reset_buf_atr();
+        context.setState(AutomatMap::Space4);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Space4);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Comma::ch(automatContext& context)
+void AutomatMap_Comma::ch(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::List);
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_one_atr, c);
+        context.setState(AutomatMap::List);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::List);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Comma::num(automatContext& context)
+void AutomatMap_Comma::num(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        ctxt.reset();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
+    context.getState().Entry(context);
+
+
+}
+
+void AutomatMap_Comma::sp(automatContext& context)
+{
+    Automat& ctxt = context.getOwner();
+
+    context.getState().Exit(context);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        ctxt.reset();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
@@ -518,20 +760,39 @@ void AutomatMap_Space4::sp(automatContext& context)
 
 void AutomatMap_Close_bracket::EOS(automatContext& context)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Ok);
+    context.clearState();
+    try
+    {
+        ctxt.setGood();
+        context.setState(AutomatMap::Ok);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Ok);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_As2::s(automatContext& context)
+void AutomatMap_As2::ch(automatContext& context, char c)
 {
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Ss);
-    context.getState().Entry(context);
+    if (c == 's')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(AutomatMap::Ss);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
@@ -546,21 +807,44 @@ void AutomatMap_Ss::sp(automatContext& context)
 
 }
 
-void AutomatMap_Space5::ch(automatContext& context)
+void AutomatMap_Space5::ch(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Name0);
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_names_connect1, c);
+        context.setState(AutomatMap::Name0);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Name0);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Space5::num(automatContext& context)
+void AutomatMap_Space5::num(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        ctxt.reset();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
@@ -573,16 +857,44 @@ void AutomatMap_Space5::sp(automatContext& context)
 
 }
 
-void AutomatMap_Name0::ch(automatContext& context)
+void AutomatMap_Name0::ch(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
+    AutomatState& endState = context.getState();
+
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_names_connect1, c);
+        context.setState(endState);
+    }
+    catch (...)
+    {
+        context.setState(endState);
+        throw;
+    }
 
 
 }
 
-void AutomatMap_Name0::num(automatContext& context)
+void AutomatMap_Name0::num(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
+    AutomatState& endState = context.getState();
+
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_names_connect1, c);
+        context.setState(endState);
+    }
+    catch (...)
+    {
+        context.setState(endState);
+        throw;
+    }
 
 
 }
@@ -597,12 +909,20 @@ void AutomatMap_Name0::sp(automatContext& context)
 
 }
 
-void AutomatMap_Space6::j(automatContext& context)
+void AutomatMap_Space6::ch(automatContext& context, char c)
 {
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Js);
-    context.getState().Entry(context);
+    if (c == 'j')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(AutomatMap::Js);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
@@ -614,32 +934,56 @@ void AutomatMap_Space6::sp(automatContext& context)
 
 }
 
-void AutomatMap_Js::o(automatContext& context)
+void AutomatMap_Js::ch(automatContext& context, char c)
 {
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Os);
-    context.getState().Entry(context);
+    if (c == 'o')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(AutomatMap::Os);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
 
-void AutomatMap_Os::i(automatContext& context)
+void AutomatMap_Os::ch(automatContext& context, char c)
 {
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Is);
-    context.getState().Entry(context);
+    if (c == 'i')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(AutomatMap::Is);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
 
-void AutomatMap_Is::n(automatContext& context)
+void AutomatMap_Is::ch(automatContext& context, char c)
 {
 
-    context.getState().Exit(context);
-    context.setState(AutomatMap::Ns);
-    context.getState().Entry(context);
+    if (c == 'n')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(AutomatMap::Ns);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         AutomatMap_Default::ch(context, c);
+    }
 
 
 }
@@ -654,21 +998,44 @@ void AutomatMap_Ns::sp(automatContext& context)
 
 }
 
-void AutomatMap_Space7::ch(automatContext& context)
+void AutomatMap_Space7::ch(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Name1);
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_names_connect2, c);
+        context.setState(AutomatMap::Name1);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Name1);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Space7::num(automatContext& context)
+void AutomatMap_Space7::num(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Error);
+    context.clearState();
+    try
+    {
+        ctxt.setBad();
+        ctxt.reset();
+        context.setState(AutomatMap::Error);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Error);
+        throw;
+    }
     context.getState().Entry(context);
 
 
@@ -683,24 +1050,63 @@ void AutomatMap_Space7::sp(automatContext& context)
 
 void AutomatMap_Name1::EOS(automatContext& context)
 {
+    Automat& ctxt = context.getOwner();
 
     context.getState().Exit(context);
-    context.setState(AutomatMap::Ok);
+    context.clearState();
+    try
+    {
+        ctxt.setGood();
+        context.setState(AutomatMap::Ok);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Ok);
+        throw;
+    }
     context.getState().Entry(context);
 
 
 }
 
-void AutomatMap_Name1::ch(automatContext& context)
+void AutomatMap_Name1::ch(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
+    AutomatState& endState = context.getState();
+
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_names_connect2, c);
+        context.setState(endState);
+    }
+    catch (...)
+    {
+        context.setState(endState);
+        throw;
+    }
 
 
 }
 
-void AutomatMap_Name1::num(automatContext& context)
+void AutomatMap_Name1::num(automatContext& context, char c)
 {
+    Automat& ctxt = context.getOwner();
 
+    AutomatState& endState = context.getState();
+
+    context.clearState();
+    try
+    {
+        ctxt.add_char(ctxt.buf_names_connect2, c);
+        context.setState(endState);
+    }
+    catch (...)
+    {
+        context.setState(endState);
+        throw;
+    }
 
 
 }
@@ -712,9 +1118,101 @@ void AutomatMap_Name1::sp(automatContext& context)
 
 }
 
+void AutomatMap_Error::EOS(automatContext& context)
+{
+
+
+
+}
+
 void AutomatMap_Error::Unknown(automatContext& context)
 {
 
+
+
+}
+
+void AutomatMap_Error::c_b(automatContext& context)
+{
+
+
+
+}
+
+void AutomatMap_Error::ch(automatContext& context, char c)
+{
+
+
+
+}
+
+void AutomatMap_Error::comma(automatContext& context)
+{
+
+
+
+}
+
+void AutomatMap_Error::num(automatContext& context, char c)
+{
+
+
+
+}
+
+void AutomatMap_Error::o_b(automatContext& context)
+{
+
+
+
+}
+
+void AutomatMap_Error::sp(automatContext& context)
+{
+
+
+
+}
+
+void AutomatMap_Error::start(automatContext& context)
+{
+    Automat& ctxt = context.getOwner();
+
+    context.getState().Exit(context);
+    context.clearState();
+    try
+    {
+        ctxt.reset();
+        context.setState(AutomatMap::Start);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Start);
+        throw;
+    }
+    context.getState().Entry(context);
+
+
+}
+
+void AutomatMap_Ok::start(automatContext& context)
+{
+    Automat& ctxt = context.getOwner();
+
+    context.getState().Exit(context);
+    context.clearState();
+    try
+    {
+        ctxt.reset();
+        ctxt.setGood();
+        context.setState(AutomatMap::Start);
+    }
+    catch (...)
+    {
+        context.setState(AutomatMap::Start);
+        throw;
+    }
+    context.getState().Entry(context);
 
 
 }
