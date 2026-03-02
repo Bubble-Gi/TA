@@ -1,0 +1,1 @@
+add_library(reg STATIC reg_automat.cpp reg_automat.hpp)

@@ -4,7 +4,6 @@
 #include <vector>
 #include <set>
 #include <unordered_map>
-#include <sstream>
 
 class Automat {
 private:
@@ -29,8 +28,8 @@ public:
     void add_all_atr() { buf_all_atr.insert(buf_one_atr); }
     void reset() { buf_name.clear(); buf_all_atr.clear(); buf_names_connect2.clear(); buf_names_connect1.clear(); }
     void reset_buf_atr() { buf_one_atr.clear(); }
-    void printGood(const std::string &f);
-    void printGoods();
+    void printGood(const std::string &f) const;
+    void printGoods() const;
 
     void res();
 

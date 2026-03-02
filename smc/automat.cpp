@@ -24,7 +24,7 @@ void Automat::check(const std::string &str) {
     _fsm.start();
 }
 
-void Automat::printGood(const std::string &f) {
+void Automat::printGood(const std::string &f) const {
     std::ofstream out(f);
     for (auto &str : res_good_string) {
         out << str << std::endl;
@@ -38,7 +38,7 @@ void Automat::printGood(const std::string &f) {
     out.close();
 }
 
-void Automat::printGoods() {
+void Automat::printGoods() const {
     for (auto &str : res_good_string) {
         std::cout << str << std::endl;
     }
@@ -57,7 +57,6 @@ void Automat::res() {
     std::set<std::string>& tmp2 = atribytes[buf_names_connect2];
     std::set<std::string> res;
 
-    if (tmp1.empty() || tmp2.empty()) return;
     for (const auto& atr : tmp1) {
         if (tmp2.count(atr)) res.insert(buf_names_connect1 + "." + atr);
         else res.insert(atr);
