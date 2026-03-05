@@ -1,0 +1,1 @@
+add_library(base_class STATIC automat.cpp automat.h)

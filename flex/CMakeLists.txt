@@ -1,0 +1,1 @@
+add_library(flex STATIC flex.cpp flex.hpp lex.yy.cc)

@@ -1,5 +1,5 @@
-%class Automat
-%header automat.h
+%class Smc
+%header Smc.h
 %start AutomatMap::Start
 
 
