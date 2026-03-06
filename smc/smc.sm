@@ -163,5 +163,6 @@ Default {
     o_b                                     Error                       { setBad();  }
     c_b                                     Error                       { setBad();  }
     EOS                                     Error                       { setBad();  }
+    num(c :char)                            Error                       { setBad(); }
 }
 %%

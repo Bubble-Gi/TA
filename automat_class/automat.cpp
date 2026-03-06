@@ -6,10 +6,6 @@
 
 void Automat::printGood(const std::string &f) const {
     std::ofstream out(f);
-    for (auto &str : res_good_string) {
-        out << str << std::endl;
-    }
-    out << "\n" << std::endl;
     for (auto &atr : atribytes) {
         out << atr.first << " | ";
         std::ranges::copy(atr.second, std::ostream_iterator<std::string>(out, ", "));
@@ -19,7 +15,6 @@ void Automat::printGood(const std::string &f) const {
 }
 
 void Automat::printGoods() const {
-    std::cout << "\n" << std::endl;
     for (auto &atr : atribytes) {
         std::cout << atr.first << " | ";
         std::ranges::copy(atr.second, std::ostream_iterator<std::string>(std::cout, ", "));
