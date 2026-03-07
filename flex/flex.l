@@ -1,5 +1,6 @@
 %option c++
 %option noyywrap
+%option batch
 SPTAB [ \\t]+
 WORD [a-zA-Z][A-Za-z0-9._]*
 %%
@@ -13,6 +14,6 @@ WORD [a-zA-Z][A-Za-z0-9._]*
 "," {return 7;}
 {SPTAB} {return 8;}
 \n {return 0;}
-.;
+. { }
 }
 %%

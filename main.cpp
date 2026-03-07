@@ -6,6 +6,7 @@
 #include "flex/flex.hpp"
 #include <chrono>
 #include <numeric>
+#include <random>
 
 int main() {
     try {
@@ -65,7 +66,6 @@ int main() {
                         auto end = std::chrono::steady_clock::now();
                         std::chrono::duration<double> diff = end - start;
                         time.push_back(diff);
-                        std::cout << i << std::endl;
                     }
                     r.printGood("output.txt");
                     break;
@@ -81,6 +81,7 @@ int main() {
                         }
                         auto end = std::chrono::steady_clock::now();
                         std::chrono::duration<double> diff = end - start;
+                        time.push_back(diff);
                     }
                     f.printGood("output.txt");
                     break;
